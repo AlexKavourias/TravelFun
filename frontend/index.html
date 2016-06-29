@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<head>
+  <title> Where Are Alex And Liam? </title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    #map {
+      height: 100%;
+    }
+  </style>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+</head>
+<body>
+  <div id="map"></div>
+  <input type="file" id="image">
+  <script>
+    var contentString = '<div id="content">'+
+        '<div id="siteNotice">'+
+        '</div>'+
+        '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+        '<div id="bodyContent">'+
+        '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+        'sandstone rock formation in the southern part of the '+
+        'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
+        'south west of the nearest large town, Alice Springs; 450&#160;km '+
+        '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
+        'features of the Uluru - Kata Tjuta National Park. Uluru is '+
+        'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+        'Aboriginal people of the area. It has many springs, waterholes, '+
+        'rock caves and ancient paintings. Uluru is listed as a World '+
+        'Heritage Site.</p>'+
+        '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+        'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+        '(last visited June 22, 2009).</p>'+
+        '</div>'+
+        '</div>';
+
+      function getCurrentLocation() {
+        return "Reykjavik";
+      }
+      function initMap() {
+        var myLatLng = {lat: 52.5243700, lng: 13.4105300};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 4,
+          center: myLatLng
+        });
+        var markers = {}, labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', index = 0;
+        var locations =
+          [
+            {city: "Reykjavik", country: "Iceland", coordinates: {lat: 64.13333, long: -21.93333 }, arrival: "07/15/2016", departure: "07/21/2016"},
+            {city: "Trolltunga", country: "Norway", coordinates: {lat: 60.121166182, long: 6.737330384 }, arrival: "07/23/2016", departure: "07/25/2016"},
+            {city: "Oslo", country:  "Norway", coordinates: {lat: 59.9127300, long: 10.7460900 }, arrival: "07/21/2016", departure: "07/27/2016"},
+            {city: "Athens", country: "Greece", coordinates: {lat: 37.9794500,  long: 23.7162200 }, arrival: "07/27/2016", departure: "07/30/2016"},
+            {city: "Santorini", country: "Greece", coordinates: {lat: 36.395556, long: 25.459167 }, arrival: "07/30/2016", departure: "08/01/2016"},
+            {city: "Venice", country: "Italy", coordinates: {lat: 45.444958, long: 12.328463 }, arrival: "08/01/2016", departure: "08/02/2016"},
+            {city: "Florence", country: "Italy", coordinates: {lat: 43.769562, long: 11.255814 }, arrival: "08/02/2016", departure: "08/04/2016"},
+            {city: "Rome", country: "Italy",  coordinates: {lat: 41.8919300, long: 12.5113300 }, arrival: "08/04/2016", departure: "08/07/2016"},
+            {city: "Amalfi Coast", country: "Italy", coordinates: {lat: 40.6333308, long: 14.5999976 }, arrival: "08/07/2016", departure: "08/09/2016"},
+            {city: "Bari", country: "Italy", coordinates: {lat: 41.1114800, long: 16.8554000 }, arrival: "08/09/2016", departure: "08/09/2016"},
+            {city: "Dubrovnik", country: "Croatia", coordinates: {lat: 42.6480700, long: 18.0921600 }, arrival: "08/10/2016", departure: "08/12/2016"},
+            {city: "Barcelona", country: "Spain", coordinates: {lat: 41.390205, long: 2.154007 }, arrival: "08/12/2016", departure: "08/16/2016"},
+            {city: "Paris", country: "France", coordinates: {lat: 48.864716, long: 2.349014 }, arrival: "08/16/2016", departure: "08/19/2016"}
+          ];
+        locations.forEach(function(location) {
+          if (markers[location["country"]] == undefined) {
+            markers[location["country"]] = [];
+          }
+          var marker = new google.maps.Marker({
+            position:  new google.maps.LatLng(location["coordinates"]["lat"], location["coordinates"]["long"]),
+            map: map,
+            title: location["city"] == getCurrentLocation() ? "Current Location" :  location["city"] + ', ' + location["country"],
+            label: labels[index++],
+            //icon: "https://s3.amazonaws.com/wherearealexandliam/imageedit_3_5451510813.gif"
+          });
+          markers[location["country"]].push(marker);
+          if (getCurrentLocation() == location["city"]) {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function(){ marker.setAnimation(null); }, 1500);
+            /*marker.addListener('click', function() {
+              if (marker.getAnimation() !== null) {
+                marker.setAnimation(null);
+              } else {
+                marker.setAnimation(google.maps.Animation.BOUNCE);
+              }
+            });*/
+          }
+          var infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+        });
+
+      }
+
+    </script>
+  <script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBO1E_XEUuyw412tj9Qb1y_CafUowTWFmc&callback=initMap">
+  </script>
+  <script src='js/upload.js' type='text/javascript'></script>
+
+</body>

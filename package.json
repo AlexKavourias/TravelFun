@@ -1,0 +1,11 @@
+{
+  "name": "WhereAmI",
+  "version": "0.0.0",
+  "dependencies": {
+    "aws-sdk": "^2.4.2",
+    "express": "^4.14.0",
+    "html": "0.0.10",
+    "jade": "^1.11.0",
+    "mysql": "^2.11.1"
+  }
+}
