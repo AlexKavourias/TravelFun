@@ -10,6 +10,7 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 });
+
 app.use('/locations', require('./controllers/locations'));
 app.use('/photos', require('./controllers/photos'));
 /*app.use('/photos', require('./controllers/photos'));

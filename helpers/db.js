@@ -20,7 +20,7 @@ var data = JSON.parse(fs.readFileSync('config.json').toString());
 console.log(data);
 exports.connect = function(done) { 
     pool = mysql.createPool({
-      host     : 'whereami-prod.chmkc30exnbn.us-east-1.rds.amazonaws.com',
+      host     : data['host'],
       user     : 'root',
       password : data['database_password'],
       database : 'whereami'
