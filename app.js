@@ -23,6 +23,12 @@ app.get('/index', function(req, res) {
 app.get('/js/upload.js', function(req, res) {
     res.sendFile(__dirname + '/frontend/js/upload.js');
 });
+app.get('/js/map.js', function(req, res) {
+    res.sendFile(__dirname + '/frontend/js/map.js');
+});
+app.get('/js/database.js', function(req, res) {
+    res.sendFile(__dirname + '/frontend/js/database.js');
+});
 
 db.connect(function(err) {
 //    db.purge();
