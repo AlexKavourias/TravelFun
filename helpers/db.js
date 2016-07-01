@@ -16,7 +16,7 @@ var locations =
     {city: "Barcelona", country: "Spain", coordinates: {lat: 41.390205, long: 2.154007 }, arrival: "08/12/2016", departure: "08/16/2016"},
     {city: "Paris", country: "France", coordinates: {lat: 48.864716, long: 2.349014 }, arrival: "08/16/2016", departure: "08/19/2016"}];
 
-var data = JSON.parse(fs.readFileSync('config.json').toString());
+var data = JSON.parse(fs.readFileSync('/tmp/config.json').toString());
 console.log(data);
 exports.connect = function(done) { 
     pool = mysql.createPool({
