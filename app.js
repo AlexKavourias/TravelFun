@@ -46,7 +46,7 @@ db.connect(function(err) {
             //pass
         }
     });
-    app.listen(8000, function() {
+    app.listen(80, "0.0.0.0", function() {
         console.log("Listening on port 8000...");
     });
 });
