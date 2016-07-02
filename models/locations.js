@@ -11,7 +11,6 @@ exports.create = function(loc, done) {
             if (err) {
                 done(err);
             } else {
-                console.log(results[0]);
                 done();
             }
         });
@@ -61,13 +60,23 @@ function currentDate() {
 	return new Date().toISOString().split("T")[0];
 }
 
+function normalizeDate(date) {
+	months = {"Jan": "01",
+		  "Feb": "02",
+		  "Mar": "03"}
+	return date[1] + date[2] + ", " + date[3]
+} 
+
 var Location = function(city, country, latitude, longitude, arrival, departure) {
 	this.city = city
+	console.log(arrival);
+	console.log(typeof arrival);
+	
 	this.country = country
 	this.latitude = latitude;
 	this.longitude = longitude;
-	this.arrival = arrival.split("T")[0];
-	this.departure = departure.split("T")[0];
+	this.arrival = arrival.toISOString();
+	this.departure = departure.toISOString()//.split("G")[0];
 };
 
 Location.prototype.isCurrent = function() {

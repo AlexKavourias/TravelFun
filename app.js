@@ -3,6 +3,10 @@ var express = require('express');
 var db = require('./helpers/db.js');
 var locations = require('./helpers/locations.js');
 var app = express();
+var bodyParser = require("body-parser");
+
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.json());
 
 app.set('view engine', 'jade');
 app.use(function(req, res, next) {
@@ -13,11 +17,14 @@ app.use(function(req, res, next) {
 
 app.use('/locations', require('./controllers/locations'));
 app.use('/photos', require('./controllers/photos'));
-/*app.use('/photos', require('./controllers/photos'));
-app.use('/blogs', require('./controllers/blogs'));*/
+/*app.use('/blogs', require('./controllers/blogs'));*/
 
 app.get('/map', function(req, res) {
     res.sendFile(__dirname + '/frontend/map.html');
+});
+
+app.get('/photos/upload', function(req, res) {
+    res.sendFile(__dirname + '/frontend/upload.html');
 });
 
 app.get('/js/upload.js', function(req, res) {

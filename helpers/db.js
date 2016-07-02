@@ -54,8 +54,8 @@ exports.setup = function(done) {
       pool.query('CREATE TABLE IF NOT EXISTS photos (file_name VARCHAR(255), date_taken DATE, date_uploaded DATE, city VARCHAR(255)' + 
 		', FOREIGN KEY(city) REFERENCES locations(city), PRIMARY KEY(file_name))');
       pool.query('CREATE TABLE IF NOT EXISTS blogs(id INT, text TEXT, city VARCHAR(255), country VARCHAR(255), PRIMARY KEY(id))');
-      pool.query('CREATE TABLE IF NOT EXISTS photo_urls(file_name VARCHAR(255), photo_id INT, large_url VARCHAR(255),' + 
-  		 'thumbnail_url VARCHAR(255), mobile_url VARCHAR(255), FOREIGN KEY(file_name) REFERENCES photos(id)), PRIMARY KEY(file_name)');
+      pool.query('CREATE TABLE IF NOT EXISTS photo_urls(file_name VARCHAR(255), large_url VARCHAR(255),' + 
+  		 'thumbnail_url VARCHAR(255), mobile_url VARCHAR(255), FOREIGN KEY(file_name) REFERENCES photos(file_name), PRIMARY KEY(file_name))');
       done();
     } catch(e) {
       done(e);

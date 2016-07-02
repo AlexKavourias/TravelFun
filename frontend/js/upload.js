@@ -14,7 +14,7 @@ function upload(file, signed_request, url, done) {
 
 function sign_request(file, done) {
   var xhr = new XMLHttpRequest()
-  xhr.open("GET", "file_name=" + file.name + "&file_type=" + file.type)
+  xhr.open("GET", "/photos/sign?file_name=" + file.name + "&file_type=" + file.type)
 
   xhr.onreadystatechange = function() {
     if(xhr.readyState === 4 && xhr.status === 200) {
@@ -30,17 +30,22 @@ document.getElementById("image").onchange = function() {
   var files = document.getElementById("image").files;
    
   if (!files) return;
-
-  files.forEach(function(file) {
+  for (var i = 0; i < files.length; i++) {
+    var file = files[i];
     sign_request(file, function(response) {
         response = JSON.parse(response);
         console.log('Rsp:' + response);
         upload(file, response['signed_request'], response['url'], function() {
-          document.getElementById("preview").src = response['url'];
-          $.post('/photos',
+          $('body').append("<img src='" + response['url'] +"'></img>");
+          var post = $.post('/photos/', {"city": $('#cityInput').val(),
+			     "fileName": file.name});
+	  post.done(function(data) {
+	      $('body').append('<p>'+file.name+'</p');
+	  });
         });
      });
-  }
-}
+   }
+};
+
 
 
