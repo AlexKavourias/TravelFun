@@ -50,11 +50,12 @@ exports.drop = function(tables, done) {
 
 exports.setup = function(done) {
     try {
-      pool.query('CREATE TABLE IF NOT EXISTS photo_urls(id INT, photo_id INT, large_url VARCHAR(255), thumbnail_url VARCHAR(255), mobile_url VARCHAR(255), FOREIGN KEY(photo_id) REFERENCES photos(id))');
-      pool.query('CREATE TABLE IF NOT EXISTS photos (id INT, date_taken DATE, date_uploaded DATE,' +
-                 'city VARCHAR(255), country VARCHAR(255), latitude DECIMAL(12, 10), longitude DECIMAL(12, 10), PRIMARY KEY(id))');
       pool.query('CREATE TABLE IF NOT EXISTS locations(city VARCHAR(255), country VARCHAR(255), latitude DECIMAL(12, 10), longitude DECIMAL(12, 10), arrival DATE, departure DATE, PRIMARY KEY(city))');
+      pool.query('CREATE TABLE IF NOT EXISTS photos (file_name VARCHAR(255), date_taken DATE, date_uploaded DATE, city VARCHAR(255)' + 
+		', FOREIGN KEY(city) REFERENCES locations(city), PRIMARY KEY(file_name))');
       pool.query('CREATE TABLE IF NOT EXISTS blogs(id INT, text TEXT, city VARCHAR(255), country VARCHAR(255), PRIMARY KEY(id))');
+      pool.query('CREATE TABLE IF NOT EXISTS photo_urls(file_name VARCHAR(255), photo_id INT, large_url VARCHAR(255),' + 
+  		 'thumbnail_url VARCHAR(255), mobile_url VARCHAR(255), FOREIGN KEY(file_name) REFERENCES photos(id)), PRIMARY KEY(file_name)');
       done();
     } catch(e) {
       done(e);
