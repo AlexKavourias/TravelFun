@@ -1,17 +1,17 @@
 var db = require('../helpers/db.js');
 
-exports.create = function(photo, done) {
+exports.create = function(fileName, city, dateTaken, dateUploaded, done) {
   db.get().query(
 	"INSERT INTO photos (file_name, date_taken, date_uploaded, city) VALUES (?, ?, ?, ?)",
-	[photo["file_name"], photo["date_taken"], photo["date_uploaded"], photo["city"]], 
+	[fileName, dateTaken, dateUploaded, city], 
 	function(err, results) {
 	    if (err) {
-		done(err);
+            done(err);
 	    } else {
-		done();
+            done();
 	    }
 	});
-}
+};
 
 var Photo = function(file_name, date_taken, date_uploaded, city) {
 	this.file_name = file_name;

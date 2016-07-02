@@ -31,13 +31,13 @@ router.post('/', function(req, res) {
     var dateTaken = "undefined";
     var dateUploaded = new Date().toISOString().split('T')[0];		
 
-    photos.create(fileName, city, dateTaken, dateUploaded, function(req, res) {
+    photos.create(fileName, city, dateTaken, dateUploaded, function(err) {
 	    if (err) {
-	        res.status(400)
-		res.send(err);
+            res.status(400);
+            res.send(err);
 	    } else {
-		res.status(200);
-		res.send("Success");
+            res.status(200);
+            res.send("Success");
 	    }
 	});
 
