@@ -37,11 +37,12 @@ document.getElementById("image").onchange = function() {
         console.log('Rsp:' + response);
         upload(file, response['signed_request'], response['url'], function() {
           $('body').append("<img src='" + response['url'] +"'></img>");
-          var post = $.post('/photos/', {"city": $('#cityInput').val(),
+          var post = $.post('/photos/', 
+                {"city": $('#cityInput').val(),
 			     "fileName": file.name});
-	  post.done(function(data) {
-	      $('body').append('<p>'+file.name+'</p');
-	  });
+          post.done(function(data) {
+              $('body').append('<p>'+file.name+'</p');
+          });
         });
      });
    }

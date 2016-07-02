@@ -1,6 +1,6 @@
 
-function getCurrentLocation() {
-  return "Reykjavik";
+function getCurrentLocation(done) {
+  $.get("/locations/current", done);
 }
 
 function getLocations(done) {
