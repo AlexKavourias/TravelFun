@@ -1,7 +1,9 @@
 var map = undefined;
+var currentMarker = undefined;
 
 function formatTime(time) {
-  return time.split('T')[0];
+  var time = time.split('T')[0].split('-');
+  return time[1] + '/' + time[2] + '/' + time[0];
 }
 
 function createWindowContent(location) {
@@ -9,8 +11,8 @@ function createWindowContent(location) {
       '<h1 id="firstHeading" class="firstHeading">'+ location["city"] + ', '
       + location["country"] + '</h1>'+
       '<div id="bodyContent">'+
-      '<div style="float:left;"><b>Arrival: </b>:<p>' + formatTime(location['arrival']) + '</p></div>' +
-      '<div style="float:left;"><b>Departure: </b>:<p>' + formatTime(location['departure']) + '</p></div>' +
+      '<div style="width:100%"><b>Arrival: </b>' + formatTime(location['arrival']) + '</div>' +
+      '<div style="width:100%;"><b>Departure: </b>' + formatTime(location['departure']) + '</div>' +
       '</div>'+
       '</div>';
 
@@ -41,19 +43,34 @@ function initMap() {
       if (getCurrentLocation() == location["city"]) {
         marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function(){ marker.setAnimation(null); }, 1500);
-        /*marker.addListener('click', function() {
-          if (marker.getAnimation() !== null) {
-            marker.setAnimation(null);
-          } else {
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-          }
-        });*/
       }
-      var infowindow = new google.maps.InfoWindow({
+      marker.infowindow = new google.maps.InfoWindow({
         content: createWindowContent(location)
       });
       marker.addListener('click', function() {
-        infowindow.open(map, marker);
+        if (currentMarker == marker) {
+            console.log('here same');
+            if (currentMarker.infowindow.isOpen) {
+                currentMarker.infowindow.close();
+                currentMarker.infowindow.isOpen = false;
+            } else {
+                currentMarker.infowindow.open(map, currentMarker);
+                currentMarker.infowindow.isOpen = true;
+            }
+        } else {
+            console.log('not same');
+            if (!currentMarker) {
+                currentMarker = marker;
+                marker.infowindow.open(map, currentMarker);
+                marker.infowindow.isOpen = true;
+            } else {
+                currentMarker.infowindow.close();
+                currentMarker.infowindow.isOpen = false;
+                currentMarker = marker;
+                marker.infowindow.open(map, currentMarker);
+                marker.infowindow.isOpen = true;
+            }
+        }
       });
     });
   });
