@@ -26,8 +26,10 @@ function initMap() {
   });
   var markers = {}, labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
+getCurrentLocation(function(currentLocation) {
   getLocations(function (locations) {
     var index = 0;
+    currentLocation = currentLocation["city"];
     locations.forEach(function(location) {
       if (markers[location["country"]] == undefined)
         markers[location["country"]] = [];
@@ -35,21 +37,22 @@ function initMap() {
       var marker = new google.maps.Marker({
         position:  new google.maps.LatLng(location["latitude"], location["longitude"]),
         map: map,
-        title: location["city"] == getCurrentLocation() ? "Current Location" :  location["city"] + ', ' + location["country"],
-        label: labels[index++],
-        //icon: "https://s3.amazonaws.com/wherearealexandliam/imageedit_3_5451510813.gif"
+        title: location["city"] == currentLocation ? "Current Location" :  location["city"] + ', ' + location["country"],
       });
       markers[location["country"]].push(marker);
-      if (getCurrentLocation() == location["city"]) {
+      if (currentLocation == location["city"]) {
         marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function(){ marker.setAnimation(null); }, 1500);
+        marker.setIcon("https://s3.amazonaws.com/wherearealexandliam/group-2.png");
+      } else {
+        marker.setLabel(labels[index])
       }
+      index++;
       marker.infowindow = new google.maps.InfoWindow({
         content: createWindowContent(location)
       });
       marker.addListener('click', function() {
         if (currentMarker == marker) {
-            console.log('here same');
             if (currentMarker.infowindow.isOpen) {
                 currentMarker.infowindow.close();
                 currentMarker.infowindow.isOpen = false;
@@ -58,7 +61,6 @@ function initMap() {
                 currentMarker.infowindow.isOpen = true;
             }
         } else {
-            console.log('not same');
             if (!currentMarker) {
                 currentMarker = marker;
                 marker.infowindow.open(map, currentMarker);
@@ -74,4 +76,5 @@ function initMap() {
       });
     });
   });
+});
 }
