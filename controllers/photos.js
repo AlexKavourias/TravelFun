@@ -3,6 +3,10 @@ var db = require('../helpers/db');
 var photos = require('../models/photos.js');
 
 router.get('/sign', function(req, res) {
+    if (req.body.upload_key != uploadPhrase) {
+        res.status(401);
+        res.send("Unauthorized");
+    }
     aws.config.update({accessKeyId: db.AWS_ACCESS_KEY, secretAccessKey: db.AWS_SECRET_KEY});
     var s3 = new aws.S3()
     var options = {
@@ -31,17 +35,20 @@ router.post('/', function(req, res) {
     var dateTaken = "undefined";
     var dateUploaded = new Date().toISOString().split('T')[0];		
 
-    photos.create(fileName, city, dateTaken, dateUploaded, function(err) {
-	    if (err) {
-            console.log(err);
-            res.status(400);
-            res.send(err);
-	    } else {
-            res.status(200);
-            res.send("Success");
-	    }
-	});
-
+    if (req.body.upload_key == uploadPhrase) { 
+        photos.create(fileName, city, dateTaken, dateUploaded, function(err) {
+            if (err) {
+                res.status(400);
+                res.send(err);
+            } else {
+                res.status(200);
+                res.send("Success");
+            }
+        });
+    } else {
+        res.status(401);
+        res.send("Unauthorized");
+    }
 });
 
   module.exports = router
