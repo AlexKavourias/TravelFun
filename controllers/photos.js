@@ -33,6 +33,7 @@ router.post('/', function(req, res) {
 
     photos.create(fileName, city, dateTaken, dateUploaded, function(err) {
 	    if (err) {
+            console.log(err);
             res.status(400);
             res.send(err);
 	    } else {
