@@ -1,4 +1,5 @@
 var db = require('../helpers/db.js');
+var locations = require('../models/locations.js');
 
 exports.create = function(fileName, title, city, dateTaken, dateUploaded, done) {
   db.get().query(
@@ -38,14 +39,3 @@ Photo.prototype.verifyUnique = function(fileName, done) {
         done(results.length == 0);
     });
 }
-
-
-function rowsToPhotos(rows) {
-    var photos = [];
-    rows.forEach(function(row) {
-        photos.push(new Photo(rows["file_name"], rows["title"], rows["city"], rows["date_taken"], rows["date_uploaded"]));
-    });
-}
-
-exports.Photo = Photo;
-exports.rowsToPhotos = rowsToPhotos;

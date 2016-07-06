@@ -4,14 +4,36 @@
     <title>
       Upload Images
     </title>
+    <link rel="stylesheet"
+         href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/upload.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
   </head>
   <body>
-    <form method="POST" action="/photos">
-      <input type="file" id="image" multiple>
-      <input type="text" id="cityInput" name="city">
-    </form>
-    <script src="/js/upload.js" type="text/javascript">
+    <div class="container">
+      <div class="row">
+          <div>
+            <input class='form-control' type="text" id="upload_key" name="upload_key" placeholder="upload phrase">
+          </div>
+          <div style="padding:20px;">
+            <label id="upload-label" class="btn btn-default btn-file"> Select Files<input style="display:none;" type="file" id="image" multiple></label>
+          </div>
+      </div>
+      <div class="row">
+        <div id="photos" class='photo-list'>
+            
+        </div>
+      </div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/js/database.js" type="text/javascript"></script>
+    <script src="/js/upload.js" type="text/javascript"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $.get('/locations/current', function(location) {
+                $('#cityInput').val(location["city"]);
+            });
+        });
     </script>
   </body>
 </html>
