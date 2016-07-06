@@ -3,7 +3,6 @@ var db = require('../helpers/db');
 var photos = require('../models/photos.js');
 
 router.get('/sign', function(req, res) {
-    var photo = new photos.Photo();
     if (req.query.upload_key != db.uploadPhrase) {
         res.status(401);
         res.send("Unauthorized");
