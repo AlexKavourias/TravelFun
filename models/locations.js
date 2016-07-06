@@ -28,9 +28,6 @@ exports.getLocations = function(done) {
 
 exports.getCurrentLocation = function(done) {
     db.get().query(
-	/*'SELECT city from (SELECT city, Date("' + currentDate() + 
-	'") - arrival as difference from locations where date("' + currentDate() +
-	'") between arrival and departure) as temp ORDER BY difference LIMIT 1', */
     'SELECT city from (SELECT city, Date("' + currentDate() + '") - arrival as difference from locations where date("' + currentDate() + '") between arrival and departure) as temp ORDER BY difference LIMIT 1', function(err, rows) {
         if (err) {
             done(err);
