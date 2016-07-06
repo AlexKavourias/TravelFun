@@ -14,7 +14,7 @@ function upload(file, signed_request, url, done) {
 
 function sign_request(file, done) {
   var xhr = new XMLHttpRequest()
-  xhr.open("GET", "/photos/sign?file_name=" + file.name + "&file_type=" + file.type)
+  xhr.open("GET", "/photos/sign?file_name=" + file.name + "&file_type=" + file.type + "&upload_key=" + $("#upload_key").val())
 
   xhr.onreadystatechange = function() {
     if(xhr.readyState === 4 && xhr.status === 200) {
@@ -39,7 +39,9 @@ document.getElementById("image").onchange = function() {
           $('body').append("<img src='" + response['url'] +"'></img>");
           var post = $.post('/photos/', 
                 {"city": $('#cityInput').val(),
-			     "fileName": file.name});
+			     "fileName": file.name,
+                 "title": $('#title').val(),
+                 "upload_key": $('#upload_key').val()});
           post.done(function(data) {
               $('body').append('<p>'+file.name+'</p');
           });

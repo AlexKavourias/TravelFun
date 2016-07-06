@@ -17,7 +17,6 @@ app.use(function(req, res, next) {
 
 app.use('/locations', require('./controllers/locations'));
 app.use('/photos', require('./controllers/photos'));
-/*app.use('/blogs', require('./controllers/blogs'));*/
 
 app.get('/map', function(req, res) {
     res.sendFile(__dirname + '/frontend/map.html');
@@ -26,6 +25,10 @@ app.get('/map', function(req, res) {
 app.get('/photos/upload', function(req, res) {
     res.sendFile(__dirname + '/frontend/upload.html');
 });
+
+app.get('/gallery', function(req, res) {
+    res.sendFile(__dirname + '/frontend/gallery.html');
+})
 
 app.get('/js/upload.js', function(req, res) {
     res.sendFile(__dirname + '/frontend/js/upload.js');

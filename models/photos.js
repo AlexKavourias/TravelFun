@@ -1,9 +1,9 @@
 var db = require('../helpers/db.js');
 
-exports.create = function(fileName, city, dateTaken, dateUploaded, done) {
+exports.create = function(fileName, title, city, dateTaken, dateUploaded, done) {
   db.get().query(
-	"INSERT INTO photos (file_name, date_taken, date_uploaded, city) VALUES (?, ?, ?, ?)",
-	[fileName, dateTaken, dateUploaded, city], 
+	"INSERT INTO photos (file_name, title, date_taken, date_uploaded, city) VALUES (?, ?, ?, ?, ?)",
+	[fileName, title, dateTaken, dateUploaded, city], 
 	function(err, results) {
 	    if (err) {
             done(err);
@@ -13,13 +13,39 @@ exports.create = function(fileName, city, dateTaken, dateUploaded, done) {
 	});
 };
 
-var Photo = function(file_name, date_taken, date_uploaded, city) {
+exports.getCity = function(city, done) {
+    db.get().query("SELECT * FROM photos where city=" + city, function(err, rows) {
+        
+
+    });
+
+}
+
+var Photo = function(file_name, title, city, date_taken, date_uploaded) {
 	this.file_name = file_name;
+    this.title = title;
 	this.date_taken = date_taken;
 	this.date_uploaded = date_uploaded;
 	this.city = city;
-}
+};
 
 Photo.prototype.save = function() {
-	create(this.file_name, this.date_taken, this.date_uploaded, this.city);
+	create(this.file_name, this.title, this.city, this.date_taken, this.date_uploaded);
 }
+
+Photo.prototype.verifyUnique = function(fileName, done) {
+    db.get().query("SELECT * FROM photos WHERE file_name='" + fileName + "'", function(err, results) {
+        done(results.length == 0);
+    });
+}
+
+
+function rowsToPhotos(rows) {
+    var photos = [];
+    rows.forEach(function(row) {
+        photos.push(new Photo(rows["file_name"], rows["title"], rows["city"], rows["date_taken"], rows["date_uploaded"]));
+    });
+}
+
+exports.Photo = Photo;
+exports.rowsToPhotos = rowsToPhotos;

@@ -31,6 +31,7 @@ exports.connect = function(done) {
 exports.AWS_SECRET_KEY = data['AWS_SECRET_KEY'];
 exports.AWS_ACCESS_KEY = data['AWS_ACCESS_KEY'];
 exports.S3_BUCKET = data['S3_BUCKET'];
+exports.uploadPhrase = data['upload_phrase'];
 
 exports.get = function() {
     if (pool) {
@@ -51,7 +52,7 @@ exports.drop = function(tables, done) {
 exports.setup = function(done) {
     try {
       pool.query('CREATE TABLE IF NOT EXISTS locations(city VARCHAR(255), country VARCHAR(255), latitude DECIMAL(12, 10), longitude DECIMAL(12, 10), arrival DATE, departure DATE, PRIMARY KEY(city))');
-      pool.query('CREATE TABLE IF NOT EXISTS photos (file_name VARCHAR(255), date_taken DATE, date_uploaded DATE, city VARCHAR(255)' + 
+      pool.query('CREATE TABLE IF NOT EXISTS photos (file_name VARCHAR(255), title VARCHAR(255), date_taken DATE, date_uploaded DATE, city VARCHAR(255)' + 
 		', FOREIGN KEY(city) REFERENCES locations(city), PRIMARY KEY(file_name))');
       pool.query('CREATE TABLE IF NOT EXISTS blogs(id INT, text TEXT, city VARCHAR(255), country VARCHAR(255), PRIMARY KEY(id))');
       pool.query('CREATE TABLE IF NOT EXISTS photo_urls(file_name VARCHAR(255), large_url VARCHAR(255),' + 
