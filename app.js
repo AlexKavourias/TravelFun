@@ -39,6 +39,10 @@ app.get('/js/map.js', function(req, res) {
 app.get('/js/database.js', function(req, res) {
     res.sendFile(__dirname + '/frontend/js/database.js');
 });
+app.get('/css/upload.css', function(req, res) {
+    res.sendFile(__dirname + '/frontend/css/upload.css');
+});
+
 
 db.connect(function(err) {
 //    db.purge();
