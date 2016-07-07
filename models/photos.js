@@ -14,15 +14,25 @@ exports.create = function(fileName, title, city, dateTaken, dateUploaded, done) 
 	});
 };
 
-exports.getCity = function(city, done) {
-    db.get().query("SELECT * FROM photos where city=" + city, function(err, rows) {
-        
-
-    });
-
+exports.getByCity = function (city, done) {
+    if (city) {
+        db.get.query("SELECT * FROM photos WHERE city='" + city + "'", function (err, rows) {
+            if (err)
+                done(err)
+            else
+                done(rows);
+        });
+    } else {
+        db.get.query("SELECT * FROM photos", function (err, rows) {
+            if (err)
+                done(err);
+            else
+                done(rows);
+        });
+    }
 }
 
-var Photo = function(file_name, title, city, date_taken, date_uploaded) {
+var Photo = function(file_name, date_taken, date_uploaded, city) {
 	this.file_name = file_name;
     this.title = title;
 	this.date_taken = date_taken;

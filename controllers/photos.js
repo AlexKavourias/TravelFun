@@ -71,4 +71,17 @@ router.get('/', function(req, res) {
     });
 });
 
-module.exports = router
+router.get('/gallery/:city', function (req, res) {
+    var city = req.params.city;
+    photos.getByCity(city, function (err, rows) {
+        if (rows) {
+            res.header('Content-Type', 'application/json');
+            res.send(rows);
+        } else {
+            res.status(401);
+            res.send(err);
+        }
+    });
+});
+
+  module.exports = router
