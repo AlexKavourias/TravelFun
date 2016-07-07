@@ -1,5 +1,6 @@
 var db = require('../helpers/db.js');
 var locations = require('../models/locations.js');
+var recentCount = 50;
 
 exports.create = function(fileName, title, city, dateTaken, dateUploaded, done) {
   db.get().query(
@@ -30,6 +31,13 @@ exports.getByCity = function (city, done) {
                 done(rows);
         });
     }
+exports.getRecent = function(done) {
+    db.get().query('SELECT * FROM photos SORT BY date_uploaded ASC LIMIT ' + recentCount, function(err, rows) {
+        if (err) 
+            done(err);
+        else
+            done(rows);    
+    }); 
 }
 
 var Photo = function(file_name, date_taken, date_uploaded, city) {

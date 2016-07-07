@@ -17,7 +17,7 @@ exports.create = function(loc, done) {
     };
 
 exports.getLocations = function(done) {
-  db.get().query('SELECT * FROM locations ORDER BY ARRIVAL ASC', function(err, rows) {
+  db.get().query('SELECT * FROM locations ORDER BY city ASC', function(err, rows) {
     if (err) {
         done(err);
     } else {
