@@ -1,14 +1,35 @@
 <!DOCTYPE html>
 <htmL>
   <head>
-    Image Gallery
     <link rel="stylesheet"
          href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
-    <link rel="stylesheet" href="css/bootstrap-image-gallery.min.css">
+    <link rel="stylesheet" href="css/bootstrap-image-gallery.css">
+    <link rel="stylesheet" href="css/gallery.css">
   </head>
   <body>
-    <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-use-bootstrap-modal="true">
+    <div class="container">
+            <h1> Photos By City </h1>
+            <div style="height:100px;" id="galleryLinks"> </div>
+            <div><h1> Most Recent Photos <h1></div>
+            <div style="margin-left: 20px;" id="currentLocation" class='title'>
+              
+            </div>
+          <form class="form-inline">
+            <div class="form-group" style="margin: 10px 20px;">
+                <button id="image-gallery-button" type="button" class="btn btn-primary btn-lg">
+                    <i class="glyphicon glyphicon-picture"></i>
+                    Launch Gallery
+                </button>
+            <div class="btn-group" data-toggle="buttons">
+              <label class="btn btn-success btn-lg">
+                <i class="glyphicon glyphicon-leaf"></i>
+                <input id="borderless-checkbox" type="checkbox"> Borderless
+              </label>
+            </div>
+            </div>
+          </form>
+    <div id="blueimp-gallery" class="blueimp-gallery blueimp-gallery-controls" data-use-bootstrap-modal="false">
       <div class="slides"></div>
 
       <h3 class="title"></h3>
@@ -40,19 +61,26 @@
       </div>
     </div>
     <div id="links">
-        <a href="https://s3.amazonaws.com/wherearealexandliam/photos/Untitled.jpg" title="Banana" data-gallery>
-            <img src="images/thumbnails/banana.jpg" alt="Banana">
-        </a>
-        <a href="https://s3.amazonaws.com/wherearealexandliam/photos/Untitled.jpg" title="Apple" data-gallery>
-            <img src="images/thumbnails/apple.jpg" alt="Apple">
-        </a>
-        <a href="https://s3.amazonaws.com/wherearealexandliam/photos/Untitled.jpg" title="Orange" data-gallery>
-            <img src="images/thumbnails/orange.jpg" alt="Orange">
-        </a>
+    </div>
+
+    <div class="row"></div>
+    
+    </div>
     </div>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/js/gallery.js"></script>
     <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="js/bootstrap-image-gallery.min.js"></script>
+    <script src="js/bootstrap-image-gallery.js"></script>
+    <script type="text/javascript">
+    
+       $(document).ready(function() {
+      /*   $.get('/locations/current', function (location) {
+                $('#currentLocation').append("<h3><i>Currently Visiting </i>" + location["city"] + "!</h3>");
+              //  $('#currentLocation').append("<p>" + location["arrival"].split('T')[0] + " - " + location["departure"].split('T')[0] + "</p>");
+            });*/
+          
+       });
+    </script>
   </body>
 </html>

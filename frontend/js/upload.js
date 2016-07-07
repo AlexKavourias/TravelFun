@@ -35,15 +35,15 @@ document.getElementById("image").onchange = function() {
   for (var i=0; i < files.length; i++)
     fileList.push(files[i]);
   console.log(fileList);
-   
+
+
+  var city = $('#defaultCity').val();   
   fileList.forEach(function(file) {
-    getCurrentLocation(function(location) {
-        sign_request(file, function(response) {
-            console.log(file.name + "\t" + JSON.parse(response));
-            response = JSON.parse(response);
-            upload(file, response['signed_request'], response['url'], function() {      
-                addEditForm(file, location["city"]);
-            });
+    sign_request(file, function(response) {
+        console.log(file.name + "\t" + JSON.parse(response));
+        response = JSON.parse(response);
+        upload(file, response['signed_request'], response['url'], function() {      
+            addEditForm(file, city);
         });
     });
   });
@@ -51,7 +51,8 @@ document.getElementById("image").onchange = function() {
 
 function addEditForm(file, city) {
     var fileName = file.name.split('.')[0];
-    appendEditForm(fileName, city);
+    if ($('#form' + fileName).length == 0)
+        appendEditForm(fileName, city);
     //Register listeners
     readURL(file, function(e) {
         $('#img' + fileName).attr('src', e.target.result);
@@ -73,7 +74,7 @@ function addEditForm(file, city) {
 };
 
 function appendEditForm(fileName, city) {
-     var form = "<div class='col-sm-4 col-md-4 col-lg-4 col-xs-12'>" +
+     var form = "<div class='col-sm-6 col-md-4 col-lg-4 col-xs-12'>" +
             "<div class='photo' id='" + fileName + "'><form id='form" + fileName + "' class='form-group' action='/photos/' method='POST'>" +
             "<div class='preview-photo'>" +
             "<img src='#' id='img" + fileName + "'/></div>" +

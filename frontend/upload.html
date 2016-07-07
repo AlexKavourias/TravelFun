@@ -15,6 +15,9 @@
           <div>
             <input class='form-control' type="text" id="upload_key" name="upload_key" placeholder="upload phrase">
           </div>
+          <div>
+            <input class='form-control' type="text" id="defaultCity" name="upload_key">
+          </div>
           <div style="padding:20px;">
             <label id="upload-label" class="btn btn-default btn-file"> Select Files<input style="display:none;" type="file" id="image" multiple></label>
           </div>
@@ -31,7 +34,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $.get('/locations/current', function(location) {
-                $('#cityInput').val(location["city"]);
+                $('#defaultCity').val(location["city"]);
             });
         });
     </script>
