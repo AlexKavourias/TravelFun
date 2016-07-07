@@ -29,7 +29,9 @@ app.get('/photos/upload', function(req, res) {
 app.get('/gallery', function(req, res) {
     res.sendFile(__dirname + '/frontend/gallery.html');
 })
-
+app.get('/', function(req, res) {
+    res.sendFile(__dirname + '/frontend/index.html');
+});
 app.get('/js/upload.js', function(req, res) {
     res.sendFile(__dirname + '/frontend/js/upload.js');
 });
@@ -41,6 +43,18 @@ app.get('/js/database.js', function(req, res) {
 });
 app.get('/css/upload.css', function(req, res) {
     res.sendFile(__dirname + '/frontend/css/upload.css');
+});
+app.get('/css/gallery.css', function(req, res) {
+    res.sendFile(__dirname + '/frontend/css/gallery.css');
+});
+app.get('/js/gallery.js', function(req, res) {
+    res.sendFile(__dirname + '/frontend/js/gallery.js');
+});
+app.get('/js/:file', function(req, res) {
+    res.sendFile(__dirname + '/frontend/js/' + req.params.file);
+});
+app.get('/css/:file', function(req, res) {
+    res.sendFile(__dirname + '/frontend/css/' + req.params.file);
 });
 
 
