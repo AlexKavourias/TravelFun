@@ -15,7 +15,7 @@ function upload(file, signed_request, url, done) {
 
 function sign_request(file, done) {
   var xhr = new XMLHttpRequest()
-  xhr.open("GET", "/photos/sign?file_name=" + file.name + "&file_type=" + file.type + "&upload_key=" + $("#upload_key").val())
+  xhr.open("GET", "/photos/sign?file_name=" + formatName(file.name) + "&file_type=" + file.type + "&upload_key=" + $("#upload_key").val())
 
   xhr.onreadystatechange = function() {
     if(xhr.readyState === 4 && xhr.status === 200) {
@@ -40,7 +40,7 @@ document.getElementById("image").onchange = function() {
   var city = $('#defaultCity').val();   
   fileList.forEach(function(file) {
     sign_request(file, function(response) {
-        console.log(file.name + "\t" + JSON.parse(response));
+        console.log(formatName(file.name) + "\t" + JSON.parse(response));
         response = JSON.parse(response);
         upload(file, response['signed_request'], response['url'], function() {      
             addEditForm(file, city);
@@ -50,31 +50,32 @@ document.getElementById("image").onchange = function() {
 }
 
 function addEditForm(file, city) {
-    var fileName = file.name.split('.')[0];
-    if ($('#form' + fileName).length == 0)
-        appendEditForm(fileName, city);
+    var fileName = formatName(file.name);
+    var shortFileName = fileName.split('.')[0];
+    if ($('#form' + shortFileName).length == 0)
+        appendEditForm(shortFileName, city);
     //Register listeners
     readURL(file, function(e) {
-        $('#img' + fileName).attr('src', e.target.result);
+        $('#img' + shortFileName).attr('src', e.target.result);
     });
-    $('#form' + file.name.split('.')[0]).on('submit', function(e) {
+    $('#form' + shortFileName).on('submit', function(e) {
       e.preventDefault();
       $.post("/photos/", {
-            "city": $($('#form' + fileName).find("input")[1]).val(),
-            "fileName": file.name,
-            "title": $($('#form' + fileName).find("input")[0]).val(),
+            "city": $($('#form' + shortFileName).find("input")[1]).val(),
+            "fileName": fileName,
+            "title": $($('#form' + shortFileName).find("input")[0]).val(),
             "upload_key": $('#upload_key').val()},
             function() {
-                $('#' + fileName).append("<p style='color:green;'>Successfully uploaded image</p>");
+                $('#' + shortFileName).append("<p style='color:green;'>Successfully uploaded image</p>");
             },
             function() {
-                $('#' + fileName).append("<p style='color:red;'> Failed to upload image</p>");
+                $('#' + shortFileName).append("<p style='color:red;'> Failed to upload image</p>");
             });
     });
 };
 
 function appendEditForm(fileName, city) {
-     var form = "<div class=' col-md-6 '>" +
+     var form = "<div class=' col-md-4 col-lg-3 col-xs-12 col-sm-6'>" +
             "<div class='photo' id='" + fileName + "'><form id='form" + fileName + "' class='form-group' action='/photos/' method='POST'>" +
             "<div class='preview-photo'>" +
             "<img src='#' id='img" + fileName + "'/></div>" +
@@ -88,6 +89,8 @@ function appendEditForm(fileName, city) {
                 "<input class='form-control' type='submit' value='upload'>" +
             "</div>" +
             "</form></div></div>";
+    $('#photos').append(form);
+    return;
     var rows = $("body").find("div[class='row']");
     if (rows.length == 2) {
         $('#photos').append("<div class='row'>" + form + "</div>");    
@@ -107,3 +110,12 @@ function readURL(url, done) {
     reader.onload = done;
     reader.readAsDataURL(url);
 };
+
+function formatName(name) {
+    return name.replace(' ', "").replace(" ", "");
+}
+
+$('#uploadAll').on("click", function(event) {
+    event.preventDefault();
+    $('form').submit();
+});
