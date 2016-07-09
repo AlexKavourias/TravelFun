@@ -4,24 +4,24 @@
     <link rel="stylesheet"
          href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <link rel="stylesheet" href="//blueimp.github.io/Gallery/css/blueimp-gallery.min.css">
-    <link rel="stylesheet" href="css/bootstrap-image-gallery.css">
-    <link rel="stylesheet" href="css/gallery.css">
+    <link rel="stylesheet" href="/css/bootstrap-image-gallery.css">
+    <link rel="stylesheet" href="/css/gallery.css">
   </head>
   <body>
     <div class="container">
             <h1> Photos By City </h1>
             <div style="height:100px;" id="galleryLinks"> </div>
-            <div><h1> Most Recent Photos <h1></div>
+            <div id="galleryTitle"></div>
             <div style="margin-left: 20px;" id="currentLocation" class='title'>
               
             </div>
           <form class="form-inline">
             <div class="form-group" style="margin: 10px 20px;">
-                <button id="image-gallery-button" type="button" class="btn btn-primary btn-lg">
+                <button id="image-gallery-button" type="button" class="btn btn-primary btn-lg" style="display:none;">
                     <i class="glyphicon glyphicon-picture"></i>
                     Launch Gallery
                 </button>
-            <div class="btn-group" data-toggle="buttons">
+            <div class="btn-group" id="checkbox" data-toggle="buttons" style="display:none;">
               <label class="btn btn-success btn-lg">
                 <i class="glyphicon glyphicon-leaf"></i>
                 <input id="borderless-checkbox" type="checkbox"> Borderless
@@ -71,7 +71,7 @@
     <script src="/js/gallery.js"></script>
     <script src="//blueimp.github.io/Gallery/js/jquery.blueimp-gallery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <script src="js/bootstrap-image-gallery.js"></script>
+    <script src="/js/bootstrap-image-gallery.js"></script>
     <script type="text/javascript">
     
        $(document).ready(function() {

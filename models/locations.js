@@ -21,7 +21,7 @@ exports.getLocations = function(done) {
     if (err) {
         done(err);
     } else {
-        done(rowsToLocations(rows));
+        done(null, rowsToLocations(rows));
     }
   });
 };
@@ -34,9 +34,9 @@ exports.getCurrentLocation = function(done) {
         } else {
             console.log(rows);
             if (rows[0] == undefined)
-                done("Boston");
+                done(null, "Boston");
             else
-                done(rows[0]);
+                done(null, rows[0]);
         }
     });
 };

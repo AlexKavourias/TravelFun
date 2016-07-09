@@ -17,20 +17,23 @@ exports.create = function(fileName, title, city, dateTaken, dateUploaded, done) 
 
 exports.getByCity = function (city, done) {
     if (city) {
-        db.get.query("SELECT * FROM photos WHERE city='" + city + "'", function (err, rows) {
-            if (err)
-                done(err)
-            else
-                done(rows);
+        db.get().query("SELECT * FROM photos WHERE city='" + city + "'", function (err, rows) {
+            if (err) {
+                done(err);
+            } else {
+                done(null, rows);
+            }
         });
     } else {
-        db.get.query("SELECT * FROM photos", function (err, rows) {
+        db.get().query("SELECT * FROM photos", function (err, rows) {
             if (err)
                 done(err);
             else
-                done(rows);
+                done(null, rows);
         });
     }
+} 
+
 exports.getRecent = function(done) {
     db.get().query('SELECT * FROM photos SORT BY date_uploaded ASC LIMIT ' + recentCount, function(err, rows) {
         if (err) 

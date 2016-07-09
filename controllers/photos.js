@@ -51,35 +51,27 @@ router.post('/', function(req, res) {
     }
 });
 
-router.get('/city/:city', function(req, res) {
-    var city = req.params.city;
-    db.get().query("SELECT * FROM photos where city='" + city + "'", function(err, rows) {
+router.get('/', function(req, res) {
+    db.get().query("SELECT * FROM photos ORDER BY date_uploaded ASC", function(err, rows) {
         if (err) {
-            res.status(400);
-            res.send(err)
+            res.status(501);
+            res.send(err);
         } else {
-            res.header("Content-Type", "application/json");
+            res.header('Content-Type', 'application/json');
             res.send(rows);
         }
     });
-}); 
-
-router.get('/', function(req, res) {
-    db.get().query("SELECT * FROM (photos join locations) SORT BY arrival_date ASC", function(err, rows) {
-        res.header('Content-Type', 'application/json');
-        res.send(rows);
-    });
 });
 
-router.get('/gallery/:city', function (req, res) {
+router.get('/city/:city', function (req, res) {
     var city = req.params.city;
     photos.getByCity(city, function (err, rows) {
-        if (rows) {
+        if (err) {
+            res.status(403);
+            res.send(err);
+        } else {
             res.header('Content-Type', 'application/json');
             res.send(rows);
-        } else {
-            res.status(401);
-            res.send(err);
         }
     });
 });

@@ -29,6 +29,9 @@ app.get('/photos/upload', function(req, res) {
 app.get('/gallery', function(req, res) {
     res.sendFile(__dirname + '/frontend/gallery.html');
 })
+app.get('/gallery/:city', function(req, res) {
+    res.sendFile(__dirname + '/frontend/gallery.html');
+})
 app.get('/', function(req, res) {
     res.sendFile(__dirname + '/frontend/index.html');
 });

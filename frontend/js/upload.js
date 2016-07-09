@@ -74,7 +74,7 @@ function addEditForm(file, city) {
 };
 
 function appendEditForm(fileName, city) {
-     var form = "<div class='col-sm-6 col-md-4 col-lg-4 col-xs-12'>" +
+     var form = "<div class=' col-md-6 '>" +
             "<div class='photo' id='" + fileName + "'><form id='form" + fileName + "' class='form-group' action='/photos/' method='POST'>" +
             "<div class='preview-photo'>" +
             "<img src='#' id='img" + fileName + "'/></div>" +
