@@ -1,6 +1,5 @@
 # TravelFun
-Express backend and React frontend for uploading and displaying pictures while I travel
+Personal website for uploading and displaying pictures while I travel, among other things.
 
-current live URL: http://kavourias.me/map
+current live URL: https://kavourias.me
 
-Photo gallery and a map with my destinations and current location.  Nothing fancy
