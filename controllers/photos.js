@@ -52,7 +52,7 @@ router.post('/', function(req, res) {
 });
 
 router.get('/', function(req, res) {
-    db.get().query("SELECT * FROM photos ORDER BY date_uploaded ASC", function(err, rows) {
+    db.get().query("SELECT * FROM photos ORDER BY date_uploaded", function(err, rows) {
         if (err) {
             res.status(501);
             res.send(err);

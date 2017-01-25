@@ -112,7 +112,7 @@ function readURL(url, done) {
 };
 
 function formatName(name) {
-    return name.replace(' ', "").replace(" ", "");
+    return name.replace(' ', "").replace(" ", "").replace("(", "").replace(")", "");
 }
 
 $('#uploadAll').on("click", function(event) {

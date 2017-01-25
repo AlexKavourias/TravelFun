@@ -56,8 +56,14 @@ app.get('/js/gallery.js', function(req, res) {
 app.get('/js/:file', function(req, res) {
     res.sendFile(__dirname + '/frontend/js/' + req.params.file);
 });
+app.get('/build/:file', function(req, res) {
+    res.sendFile(__dirname + '/build/' + req.params.file);
+});
 app.get('/css/:file', function(req, res) {
     res.sendFile(__dirname + '/frontend/css/' + req.params.file);
+});
+app.get('/testReact', function(req, res) {
+    res.sendFile(__dirname + '/frontend/react.html');
 });
 
 
