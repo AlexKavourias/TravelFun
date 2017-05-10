@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html style="height:100%;min-height:100%;width:100%;min-width:100%">
+<head>
+  <title> Where is Alex 
+  </title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/gallery.css">
+  <style>
+    [data-reactroot] 
+        {height: 100% !important; } 
+  </style>
+</head>
+<body style="height:100%;min-height:100%;width:100%;min-width:100%">
+  <div id="app" style="height:100%;min-height:100%;width:100%;min-width:100%">
+  </div>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+  <script>
+    function initMap() {
+        console.log("map loaded");
+    }
+  </script>
+  <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBO1E_XEUuyw412tj9Qb1y_CafUowTWFmc&callback=initMap">
+  </script>
+  <script src="frontend/build/app.bundle.js"></script>
+</body>
+</html>
